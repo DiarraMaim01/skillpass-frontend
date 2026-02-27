@@ -1,3 +1,13 @@
-<header style="background-color: #3f51b5; color: white; padding: 15px;">
-  <h2>🏠 SkillPass</h2>
+<header>
+  <div class="logo">
+    <h2>♾️ SkillPass</h2>
+  </div>
+
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
+    <a routerLink="/tests" routerLinkActive="active">Tests</a>
+    <a routerLink="/login" routerLinkActive="active">Connexion</a>
+    <a routerLink="/register" routerLinkActive="active">Inscription</a>
+    <a routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</a>
+  </nav>
 </header>
