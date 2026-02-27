@@ -1,1 +1,86 @@
-<p>register works!</p>
+<div class="register-container">
+  <h2>Inscription</h2>
+
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        [(ngModel)]="nom"
+        required
+        #nomInput="ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input
+        type="text"
+        id="prenom"
+        name="prenom"
+        [(ngModel)]="prenom"
+        required
+        #prenomInput="ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        email
+        #emailInput="ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirmer le mot de passe</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        [(ngModel)]="confirmPassword"
+        required
+        #confirmInput="ngModel"
+      >
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || isLoading"
+      class="btn"
+    >
+      <span *ngIf="isLoading">Inscription en cours...</span>
+      <span *ngIf="!isLoading">S'inscrire</span>
+    </button>
+
+    <p class="login-link">
+      Déjà un compte ?
+      <a routerLink="/login">Se connecter</a>
+    </p>
+  </form>
+</div>

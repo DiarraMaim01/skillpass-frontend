@@ -6,8 +6,18 @@
   <nav>
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
     <a routerLink="/tests" routerLinkActive="active">Tests</a>
-    <a routerLink="/login" routerLinkActive="active">Connexion</a>
-    <a routerLink="/register" routerLinkActive="active">Inscription</a>
-    <a routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</a>
+
+    <!-- Si NON authentifié -->
+    <ng-container *ngIf="!authService.isAuthenticated()">
+      <a routerLink="/login" routerLinkActive="active">Connexion</a>
+      <a routerLink="/register" routerLinkActive="active">Inscription</a>
+    </ng-container>
+
+    <!-- Si authentifié -->
+    <ng-container *ngIf="authService.isAuthenticated()">
+      <a routerLink="/profile" routerLinkActive="active">Profil</a>
+      <a routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</a>
+      <a href="#" (click)="$event.preventDefault(); logout()">Déconnexion</a>
+    </ng-container>
   </nav>
 </header>
