@@ -50,6 +50,14 @@ export class Auth {
     return !!this.getToken();
   }
 
+  isAdmin(): boolean {
+  const token = this.getToken();
+  if (!token) return false;
+
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload.role?.some((r: any) => r.authority === 'ROLE_ADMIN');
+}
+
   logout(): void {
     this.removeToken();
   }

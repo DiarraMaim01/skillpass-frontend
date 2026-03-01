@@ -1,0 +1,83 @@
+<div class="questions-container">
+  <div class="header">
+    <h2>📋 Liste des questions</h2>
+
+    <!-- Bouton admin pour créer -->
+    <button
+      *ngIf="authService.isAuthenticated()"
+      class="btn-create"
+      routerLink="/questions/new"
+    >
+      + Nouvelle question
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters">
+    <label>Filtrer par catégorie :</label>
+    <select (change)="onCategoryChange($any($event.target).value)">
+      <option value="TOUTES">Toutes les catégories</option>
+      <option *ngFor="let cat of categories" [value]="cat">
+        {{ cat }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des questions...</p>
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Liste des questions -->
+  <div *ngIf="!isLoading && !errorMessage" class="questions-grid">
+    <div *ngFor="let q of filteredQuestions" class="question-card">
+      <div class="card-header">
+        <h3>{{ q.titre }}</h3>
+        <div class="badges">
+          <span class="badge category">{{ q.categorie }}</span>
+          <span class="badge level">{{ q.niveau }}</span>
+          <span class="badge points">{{ q.points }} pts</span>
+        </div>
+      </div>
+
+      <p class="question-content">{{ q.contenu }}</p>
+
+      <div class="options-preview">
+  <strong>Options :</strong>
+  <ul>
+    <li *ngFor="let opt of (q.options || []).slice(0, 2)">
+      {{ opt.texte }} <span *ngIf="opt.correcte" class="correct">✓</span>
+    </li>
+    <li *ngIf="(q.options || []).length > 2">...</li>
+  </ul>
+</div>
+
+      <div class="card-actions">
+        <button class="btn-view" [routerLink]="['/questions', q.id]">
+          Voir détails
+        </button>
+
+        <!-- Actions admin -->
+        <div *ngIf="authService.isAuthenticated()" class="admin-actions">
+          <button class="btn-edit" [routerLink]="['/questions/edit', q.id]">
+            ✏️
+          </button>
+          <button class="btn-delete" (click)="deleteQuestion(q.id)">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si aucune question -->
+    <div *ngIf="filteredQuestions.length === 0" class="no-questions">
+      Aucune question dans cette catégorie.
+    </div>
+  </div>
+</div>
