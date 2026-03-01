@@ -1,0 +1,35 @@
+<div class="detail-container">
+
+  <div *ngIf="isLoading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="question && !isLoading">
+    <div class="header">
+      <h2>{{ question.titre }}</h2>
+      <div class="actions">
+        <button routerLink="/questions" class="btn-back">← Retour</button>
+        <button [routerLink]="['/questions/edit', question.id]" class="btn-edit">✏️ Modifier</button>
+        <button (click)="delete()" class="btn-delete">🗑️ Supprimer</button>
+      </div>
+    </div>
+
+    <div class="badges">
+      <span class="badge">{{ question.categorie }}</span>
+      <span class="badge">{{ question.niveau }}</span>
+      <span class="badge">{{ question.points }} pts</span>
+    </div>
+
+    <p class="contenu">{{ question.contenu }}</p>
+
+    <div class="options">
+      <h3>Options :</h3>
+      <ul>
+        <li *ngFor="let opt of question.options" [class.correct]="opt.correcte">
+          {{ opt.texte }}
+          <span *ngIf="opt.correcte" class="correct-badge">✓ Bonne réponse</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

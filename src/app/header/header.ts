@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../services/auth';
@@ -8,16 +8,18 @@ import { Auth } from '../services/auth';
   imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Header {
-   isAdmin = false;
-   constructor(
-    public authService: Auth,  // public pour l'utiliser dans le HTML
-    private router: Router
+  constructor(
+    public authService: Auth,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+    this.cdr.markForCheck();
   }
 }

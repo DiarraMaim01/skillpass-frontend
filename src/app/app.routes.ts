@@ -6,8 +6,8 @@ import { Tests } from './tests/tests';
 import { Admin } from './admin/admin';
 import { List } from './questions/list/list';
 import { authGuard, adminGuard } from './guards/auth-guard';
-// import { QuestionDetailComponent } from './questions/detail/detail';
-// import { QuestionFormComponent } from './questions/form/form';
+import { Detail } from './questions/detail/detail';
+import { Form } from './questions/form/form';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -15,6 +15,9 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'tests', component: Tests, canActivate: [authGuard] },
   { path: 'questions', component: List, canActivate: [authGuard, adminGuard] },
+  { path: 'questions/new', component: Form, canActivate: [authGuard, adminGuard] },
+{ path: 'questions/edit/:id', component: Form, canActivate: [authGuard, adminGuard] },
+  { path: 'questions/:id', component: Detail, canActivate: [authGuard, adminGuard] },
   { path: 'admin', component: Admin, canActivate: [authGuard, adminGuard] },
   { path: '**', redirectTo: '' }
 ];           // Redirection si route inconnue

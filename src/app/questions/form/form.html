@@ -1,0 +1,74 @@
+<div class="form-container">
+  <div class="header">
+    <h2>{{ isEditMode ? '✏️ Modifier la question' : '➕ Nouvelle question' }}</h2>
+    <button routerLink="/questions" class="btn-back">← Retour</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="onSubmit()" #questionForm="ngForm" *ngIf="!isLoading">
+
+    <div class="form-group">
+      <label>Titre *</label>
+      <input type="text" [(ngModel)]="form.titre" name="titre" required>
+    </div>
+
+    <div class="form-group">
+      <label>Contenu</label>
+      <textarea [(ngModel)]="form.contenu" name="contenu" rows="3"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Catégorie *</label>
+        <select [(ngModel)]="form.categorie" name="categorie">
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Niveau *</label>
+        <select [(ngModel)]="form.niveau" name="niveau">
+          <option *ngFor="let niv of niveaux" [value]="niv">{{ niv }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Points *</label>
+        <input type="number" [(ngModel)]="form.points" name="points" min="1" max="100">
+      </div>
+    </div>
+
+    <div class="options-section">
+      <div class="options-header">
+        <h3>Options</h3>
+        <button type="button" (click)="addOption()" class="btn-add">+ Ajouter</button>
+      </div>
+
+      <div *ngFor="let opt of form.options; let i = index" class="option-row" [class.correct]="opt.correcte">
+        <input
+          type="radio"
+          [name]="'correct'"
+          [checked]="opt.correcte"
+          (change)="setCorrect(i)"
+          title="Bonne réponse"
+        >
+        <input
+          type="text"
+          [(ngModel)]="opt.texte"
+          [name]="'option_' + i"
+          placeholder="Texte de l'option"
+          required
+        >
+        <button type="button" (click)="removeOption(i)" class="btn-remove" [disabled]="form.options.length <= 2">✕</button>
+      </div>
+      <p class="hint">Sélectionne le bouton radio pour marquer la bonne réponse</p>
+    </div>
+
+    <button type="submit" [disabled]="questionForm.invalid || isLoading" class="btn-submit">
+      {{ isEditMode ? 'Modifier' : 'Créer' }}
+    </button>
+
+  </form>
+</div>

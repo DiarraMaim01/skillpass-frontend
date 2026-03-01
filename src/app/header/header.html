@@ -16,7 +16,13 @@
     <!-- Si authentifié -->
     <ng-container *ngIf="authService.isAuthenticated()">
       <a routerLink="/profile" routerLinkActive="active">Profil</a>
-      <a routerLink="/admin" routerLinkActive="active" *ngIf="isAdmin">Admin</a>
+
+      <!-- Admin uniquement -->
+      <ng-container *ngIf="authService.isAdmin()">
+        <a routerLink="/questions" routerLinkActive="active">Questions</a>
+        <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      </ng-container>
+
       <a href="#" (click)="$event.preventDefault(); logout()">Déconnexion</a>
     </ng-container>
   </nav>
