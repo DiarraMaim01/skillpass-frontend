@@ -1,0 +1,38 @@
+<div class="detail-container">
+  <div *ngIf="isLoading" class="loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="test && !isLoading">
+    <button routerLink="/tests" class="btn-back">← Retour aux tests</button>
+
+    <div class="test-card">
+      <h2>{{ test.titre }}</h2>
+      <p class="description">{{ test.description }}</p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Questions</span>
+          <span class="info-value"> {{ test.nombreQuestions }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Durée estimée</span>
+          <span class="info-value">⏱️ {{ test.dureeMinutes }} min</span>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>Instructions</h3>
+        <ul>
+          <li>Lis chaque question attentivement</li>
+          <li>Sélectionne une seule réponse par question</li>
+          <li>Tu ne peux pas revenir en arrière</li>
+          <li>Le score s'affiche à la fin</li>
+        </ul>
+      </div>
+
+      <button (click)="startTest()" class="btn-start">
+        Commencer le test
+      </button>
+    </div>
+  </div>
+</div>

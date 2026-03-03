@@ -1,0 +1,32 @@
+<div class="tests-container">
+  <div class="header">
+    <h2>📝 Tests disponibles</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des tests...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="tests-grid">
+    <div *ngFor="let test of tests" class="test-card">
+      <div class="card-header">
+        <h3>{{ test.titre }}</h3>
+      </div>
+      <p class="description">{{ test.description }}</p>
+      <div class="meta">
+        <span> {{ test.nombreQuestions }} questions</span>
+        <span>⏱️ {{ test.dureeMinutes }} min</span>
+      </div>
+      <button [routerLink]="['/tests', test.id]" class="btn-start">
+        Commencer →
+      </button>
+    </div>
+
+    <div *ngIf="tests.length === 0" class="no-tests">
+      Aucun test disponible pour le moment.
+    </div>
+  </div>
+</div>

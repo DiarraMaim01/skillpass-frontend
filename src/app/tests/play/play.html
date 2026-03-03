@@ -1,0 +1,46 @@
+<div class="play-container">
+  <div *ngIf="isLoading" class="loading">Chargement des questions...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage && questions.length > 0">
+
+    <!-- Barre de progression -->
+    <div class="progress-bar-container">
+      <div class="progress-info">
+        <span>Question {{ currentIndex + 1 }} / {{ questions.length }}</span>
+        <span>{{ progression }}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="progression"></div>
+      </div>
+    </div>
+
+    <!-- Question -->
+    <div class="question-card">
+      <h2>{{ currentQuestion.titre }}</h2>
+      <p *ngIf="currentQuestion.contenu" class="contenu">{{ currentQuestion.contenu }}</p>
+
+      <!-- Options -->
+      <div class="options">
+        <button
+          *ngFor="let opt of currentQuestion.options"
+          class="option-btn"
+          [class.selected]="selectedOptionId === opt.id"
+          (click)="selectOption(opt.id)"
+        >
+          {{ opt.texte }}
+        </button>
+      </div>
+
+      <!-- Bouton suivant -->
+      <button
+        class="btn-next"
+        [disabled]="selectedOptionId === null"
+        (click)="next()"
+      >
+        {{ currentIndex === questions.length - 1 ? 'Terminer ✓' : 'Suivant →' }}
+      </button>
+    </div>
+
+  </div>
+</div>
