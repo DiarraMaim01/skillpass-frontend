@@ -4,6 +4,10 @@
 
   <div *ngIf="!isLoading && !errorMessage && questions.length > 0">
 
+    <div class="timer" [style.color]="timerColor">
+     ⏱️ {{ timerFormate }}
+    </div>
+
     <!-- Barre de progression -->
     <div class="progress-bar-container">
       <div class="progress-info">
@@ -15,12 +19,12 @@
       </div>
     </div>
 
-    <!-- Question -->
+
     <div class="question-card">
       <h2>{{ currentQuestion.titre }}</h2>
       <p *ngIf="currentQuestion.contenu" class="contenu">{{ currentQuestion.contenu }}</p>
 
-      <!-- Options -->
+
       <div class="options">
         <button
           *ngFor="let opt of currentQuestion.options"
@@ -32,7 +36,7 @@
         </button>
       </div>
 
-      <!-- Bouton suivant -->
+
       <button
         class="btn-next"
         [disabled]="selectedOptionId === null"

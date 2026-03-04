@@ -111,3 +111,11 @@
 }
 
 .error { color: #ef4444; }
+
+.timer {
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}

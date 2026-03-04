@@ -1,1 +1,53 @@
-<p>admin works!</p>
+<div class="dashboard-container">
+  <h2>Dashboard Admin</h2>
+
+  <div *ngIf="isLoading" class="loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <!-- Stats -->
+  <div *ngIf="stats && !isLoading" class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-icon"></span>
+      <span class="stat-value">{{ stats.totalQuestions }}</span>
+      <span class="stat-label">Questions</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"></span>
+      <span class="stat-value">{{ stats.totalTests }}</span>
+      <span class="stat-label">Tests</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"></span>
+      <span class="stat-value">{{ stats.totalUsers }}</span>
+      <span class="stat-label">Utilisateurs</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon"></span>
+      <span class="stat-value">{{ stats.totalResults }}</span>
+      <span class="stat-label">Tests passés</span>
+    </div>
+  </div>
+
+  <!-- Raccourcis -->
+  <div class="shortcuts">
+    <h3>Accès rapides</h3>
+    <div class="shortcuts-grid">
+      <a routerLink="/questions" class="shortcut-card">
+        <span class="shortcut-icon"></span>
+        <span class="shortcut-label">Voir les questions</span>
+      </a>
+      <a routerLink="/questions/new" class="shortcut-card">
+        <span class="shortcut-icon"></span>
+        <span class="shortcut-label">Nouvelle question</span>
+      </a>
+      <a routerLink="/tests" class="shortcut-card">
+        <span class="shortcut-icon"></span>
+        <span class="shortcut-label">Voir les tests</span>
+      </a>
+      <a routerLink="/tests/admin" class="shortcut-card">
+        <span class="shortcut-icon"></span>
+        <span class="shortcut-label">Gérer les tests</span>
+      </a>
+    </div>
+  </div>
+</div>

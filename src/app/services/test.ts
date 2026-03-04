@@ -59,4 +59,12 @@ export class TestService {
   searchTests(titre: string): Observable<TestSummary[]> {
     return this.http.get<TestSummary[]>(`${this.apiUrl}/search?titre=${titre}`);
   }
+
+  saveResult(body: any): Observable<any> {
+  return this.http.post<any>('http://localhost:8080/api/results', body);
+}
+
+getMyResults(): Observable<any[]> {
+  return this.http.get<any[]>('http://localhost:8080/api/results/me');
+}
 }

@@ -1,26 +1,33 @@
 <div class="home-container">
-  <h1>Bienvenue sur SkillPass</h1>
-  <p>Testez vos compétences techniques et obtenez votre certification !</p>
 
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Testez vos compétences<br><span>techniques</span></h1>
+    <p>Évaluez vos connaissances en Java, Spring, SQL et bien plus encore. Suivez votre progression et obtenez votre certification SkillPass.</p>
+    <div class="hero-actions">
+      <a routerLink="/register" class="btn-primary">Commencer gratuitement →</a>
+      <a routerLink="/login" class="btn-secondary">Se connecter</a>
+    </div>
+  </div>
+
+  <!-- Features -->
   <div class="features">
     <div class="feature-card">
-      <h3>📝 Questions techniques</h3>
-      <p>Des questions sur Java, Spring, SQL et plus encore</p>
+      <span class="feature-icon">📝</span>
+      <h3>Questions techniques</h3>
+      <p>Des questions sur Java, Spring, SQL, JavaScript, Docker et Git</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⏱️</span>
+      <h3>Tests chronométrés</h3>
+      <p>Évaluez vos connaissances en conditions réelles avec un timer</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <h3>Scores détaillés</h3>
+      <p>Suivez votre progression et consultez votre historique</p>
     </div>
 
-    <div class="feature-card">
-      <h3>⏱️ Tests chronométrés</h3>
-      <p>Évaluez vos connaissances en conditions réelles</p>
-    </div>
-
-    <div class="feature-card">
-      <h3>📊 Scores détaillés</h3>
-      <p>Suivez votre progression dans le temps</p>
-    </div>
   </div>
 
-  <div class="actions">
-    <a href="/login" class="btn">Se connecter</a>
-    <a href="/register" class="btn btn-secondary">S'inscrire</a>
-  </div>
 </div>

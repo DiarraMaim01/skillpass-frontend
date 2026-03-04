@@ -32,8 +32,11 @@ export class Login {
       next: (response) => {
         this.authService.saveToken(response.token);
         this.isLoading = false;
-        // Redirige vers la page des tests
-        this.router.navigate(['/tests']);
+        if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin']);  // ← admin → dashboard
+        } else {
+           this.router.navigate(['/tests']); // ← user → tests
+          }
       },
       error: (error) => {
         this.isLoading = false;

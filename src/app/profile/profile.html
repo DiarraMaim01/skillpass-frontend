@@ -1,0 +1,52 @@
+<div class="profile-container">
+  <div class="header">
+    <h2>👤 Mon Profil</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="!isLoading && !errorMessage">
+
+    <!-- Stats globales -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">{{ results.length }}</span>
+        <span class="stat-label">Tests passés</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ totalPoints }}</span>
+        <span class="stat-label">Points totaux</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ averageScore }}%</span>
+        <span class="stat-label">Score moyen</span>
+      </div>
+    </div>
+
+    <!-- Historique -->
+    <div class="history">
+      <h3>Historique des tests</h3>
+
+      <div *ngIf="results.length === 0" class="empty">
+        Tu n'as pas encore passé de test.
+        <a routerLink="/tests">Commencer un test →</a>
+      </div>
+
+      <div *ngFor="let r of results" class="result-row">
+        <div class="result-info">
+          <strong>{{ r.test?.titre || 'Test #' + r.id }}</strong>
+          <span class="date">{{ r.completedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="result-stats">
+          <span class="score">{{ r.score }} pts</span>
+          <span class="percentage" [class.good]="r.percentage >= 60" [class.bad]="r.percentage < 40">
+            {{ getMention(r.percentage) }} {{ r.percentage }}%
+          </span>
+          <span class="time">⏱️ {{ r.timeSpentSeconds }}s</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="admin-container">
+  <div class="header">
+    <h2>⚙️ Gestion des tests</h2>
+    <button routerLink="/admin" class="btn-back">← Dashboard</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+  <!-- Créer un test aléatoire -->
+  <div class="section">
+    <h3>➕ Créer un test aléatoire</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Titre *</label>
+        <input type="text" [(ngModel)]="newTest.titre" placeholder="Ex: Test Java Débutant">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" [(ngModel)]="newTest.description" placeholder="Description du test">
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select [(ngModel)]="newTest.categorie">
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nombre de questions</label>
+        <input type="number" [(ngModel)]="newTest.questionCount" min="1" max="20">
+      </div>
+    </div>
+    <button (click)="createRandomTest()" class="btn-primary">Créer le test</button>
+  </div>
+
+  <!-- Ajouter une question à un test -->
+  <div class="section">
+    <h3>🔗 Ajouter une question à un test</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Test</label>
+        <select [(ngModel)]="selectedTestId">
+          <option [ngValue]="null">Sélectionner un test</option>
+          <option *ngFor="let test of tests" [ngValue]="test.id">{{ test.titre }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Question</label>
+        <select [(ngModel)]="selectedQuestionId">
+          <option [ngValue]="null">Sélectionner une question</option>
+          <option *ngFor="let q of questions" [ngValue]="q.id">{{ q.titre }}</option>
+        </select>
+      </div>
+    </div>
+    <button (click)="addQuestionToTest()" class="btn-primary">Ajouter</button>
+  </div>
+
+  <!-- Liste des tests -->
+  <div class="section">
+    <h3>📋 Tests existants</h3>
+    <div *ngIf="isLoading">Chargement...</div>
+    <div class="tests-table" *ngIf="!isLoading">
+      <div *ngFor="let test of tests" class="test-row">
+        <div class="test-info">
+          <strong>{{ test.titre }}</strong>
+          <span class="meta">{{ test.nombreQuestions }} questions · {{ test.dureeMinutes }} min</span>
+        </div>
+        <div class="test-actions">
+          <button [routerLink]="['/tests', test.id]" class="btn-view">👁️</button>
+          <button (click)="deleteTest(test.id)" class="btn-delete">🗑️</button>
+        </div>
+      </div>
+      <div *ngIf="tests.length === 0" class="empty">Aucun test créé.</div>
+    </div>
+  </div>
+</div>

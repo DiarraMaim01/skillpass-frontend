@@ -11,6 +11,11 @@ import { TestsList } from './tests/list/list';
 import { TestDetail } from './tests/detail/detail';
 import { TestPlay } from './tests/play/play';
 import { TestResult } from './tests/result/result';
+import { TestsAdmin } from './tests/admin/admin';
+import { Profile } from './profile/profile';
+import { NotFound } from './not-found/not-found';
+
+
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -24,10 +29,15 @@ export const routes: Routes = [
 
   // test
   { path: 'tests', component: TestsList, canActivate: [authGuard] },
+  { path: 'tests/admin', component: TestsAdmin, canActivate: [authGuard, adminGuard] },
 { path: 'tests/:id', component: TestDetail, canActivate: [authGuard] },
 { path: 'tests/:id/play', component: TestPlay, canActivate: [authGuard] },
 { path: 'tests/:id/result', component: TestResult, canActivate: [authGuard] },
-  { path: '**', redirectTo: '' }
+
+{ path: 'profile', component: Profile, canActivate: [authGuard] },
+
+
+  { path: '**', component: NotFound }
 ];           // Redirection si route inconnue
 
 

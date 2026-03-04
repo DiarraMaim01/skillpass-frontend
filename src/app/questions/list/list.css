@@ -17,7 +17,7 @@
 }
 
 .btn-create {
-  background-color: #4caf50;
+  background-color: #5e3fce;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -28,7 +28,7 @@
 }
 
 .btn-create:hover {
-  background-color: #45a049;
+  background-color: #0d0d62;
 }
 
 .filters {
