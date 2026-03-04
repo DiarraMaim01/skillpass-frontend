@@ -61,4 +61,15 @@ export class Auth {
   logout(): void {
     this.removeToken();
   }
+
+  getUserInfo(): { nom: string, prenom: string, email: string } | null {
+  const token = this.getToken();
+  if (!token || !this.isBrowser()) return null;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return {
+    nom: payload.nom || '',
+    prenom: payload.prenom || '',
+    email: payload.sub
+  };
+}
 }

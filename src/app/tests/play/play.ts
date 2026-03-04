@@ -22,6 +22,8 @@ export class TestPlay implements OnInit, OnDestroy {
   startTime!: number;
   timeLeft: number = 0;
   timerInterval: any;
+  testTitre: string = '';
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,17 +37,16 @@ export class TestPlay implements OnInit, OnDestroy {
     this.isLoading = true;
     this.cdr.markForCheck();
 
-    // 1. Charge le test pour avoir la durée
     this.testService.getTestById(this.testId).subscribe({
       next: (test: any) => {
         this.timeLeft = test.dureeMinutes * 60;
-        // 2. Charge les questions
+         this.testTitre = test.titre;
         this.testService.getTestQuestions(this.testId).subscribe({
           next: (data) => {
             this.questions = data;
             this.isLoading = false;
             this.startTime = Date.now();
-            this.startTimer();  // ← démarre le timer
+            this.startTimer();
             this.cdr.markForCheck();
           },
           error: () => {
@@ -123,7 +124,7 @@ export class TestPlay implements OnInit, OnDestroy {
   }
 
   submitTest(): void {
-    clearInterval(this.timerInterval);  // ← arrête le timer
+    clearInterval(this.timerInterval);
     const timeSpent = Math.round((Date.now() - this.startTime) / 1000);
     const selectedOptionIds = this.reponses.map(r => r.optionId);
 
@@ -145,7 +146,8 @@ export class TestPlay implements OnInit, OnDestroy {
                 totalQuestions: result.totalQuestions,
                 pourcentage: result.pourcentage,
                 timeSpentSeconds: timeSpent,
-                testId: this.testId
+                testId: this.testId,
+                testTitre: this.testTitre
               }
             });
           },
@@ -157,7 +159,9 @@ export class TestPlay implements OnInit, OnDestroy {
                 totalQuestions: result.totalQuestions,
                 pourcentage: result.pourcentage,
                 timeSpentSeconds: timeSpent,
-                testId: this.testId
+                testId: this.testId,
+                testTitre: this.testTitre  // ← ajoute ça
+
               }
             });
           }

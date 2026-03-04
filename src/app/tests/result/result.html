@@ -25,7 +25,9 @@
 
     <div class="actions">
       <button routerLink="/tests" class="btn-secondary">← Retour aux tests</button>
-      <button [routerLink]="['/tests', testId, 'play']" class="btn-primary">🔄 Recommencer</button>
+      <button [routerLink]="['/tests', testId, 'play']" class="btn-primary"> Recommencer</button>
+      <button *ngIf="pourcentage >= 60" (click)="downloadCertif()" class="btn-certif">🎓 Télécharger le certificat</button>
+
     </div>
 
   </div>
