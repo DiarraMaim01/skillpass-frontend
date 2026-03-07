@@ -3,12 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest, RegisterRequest, AuthResponse } from '../models/auth';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private  apiUrl = `${environment.apiUrl}/auth`;
 
   constructor(
     private http: HttpClient,

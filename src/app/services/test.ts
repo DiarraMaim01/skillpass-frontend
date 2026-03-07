@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TestSummary, ResultatTest } from '../models/test';
 import { Question } from '../models/question';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestService {
-  private apiUrl = 'http://localhost:8080/api/tests';
-
+  private apiUrl = `${environment.apiUrl}/tests`;
   constructor(private http: HttpClient) {}
 
   // GET : tous les tests
@@ -60,11 +60,11 @@ export class TestService {
     return this.http.get<TestSummary[]>(`${this.apiUrl}/search?titre=${titre}`);
   }
 
-  saveResult(body: any): Observable<any> {
-  return this.http.post<any>('http://localhost:8080/api/results', body);
+ saveResult(body: any): Observable<any> {
+  return this.http.post<any>(`${environment.apiUrl}/results`, body);
 }
 
 getMyResults(): Observable<any[]> {
-  return this.http.get<any[]>('http://localhost:8080/api/results/me');
+  return this.http.get<any[]>(`${environment.apiUrl}/results/me`);
 }
 }
